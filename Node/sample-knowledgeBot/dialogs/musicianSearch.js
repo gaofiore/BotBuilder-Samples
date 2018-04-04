@@ -1,32 +1,24 @@
-const builder = require('botbuilder');
-const searchHelper = require('../searchHelpers.js');
-const messageHelper = require('../messageHelper.js');
-
-module.exports = {
-    id: 'musicianSearch',
-    title: 'Search Organizations',
-    dialog: [
-        (session) => {
+module.exports = function () {
+    bot.dialog('/musicianSearch', [
+        function (session) {
             //Prompt for string input
-            builder.Prompts.text(session, 'Who are you searching for?');
+            builder.Prompts.text(session, "Type in the name of the musician you are searching for:");
         },
-        (session, results) => {
+        function (session, results) {
             //Sets name equal to resulting input
-            const keyword = results.response;
+            var name = results.response;
 
-            searchHelper.searchQuery(keyword, (err, result) => {
+            var queryString = searchQueryStringBuilder('search= ' + name);
+            performSearchQuery(queryString, function (err, result) {
                 if (err) {
-                    console.log(`Search query failed with ${err}`);
-                    session.endConversation(`Sorry, I had an error when talking to the server.`);
-                } else if (result && result.length > 0) {
-                    const message =  messageHelper.getMusiciansCarousel(session, result);
-                    session.endConversation(message);
+                    console.log("Error when searching for musician: " + err);
+                } else if (result && result['value'] && result['value'][0]) {
+                    //If we have results send them to the showResults dialog (acts like a decoupled view)
+                    session.replaceDialog('/showResults', { result });
                 } else {
-                    const message = "I couldn't find any organizations by that name";
-                    session.endConversation(message);
+                    session.endDialog("No musicians by the name \'" + name + "\' found");
                 }
-                session.reset('/');
-            });
+            })
         }
-    ]
+    ]);
 }
