@@ -10,7 +10,7 @@ module.exports = {
             message.addAttachment(
                 new builder.HeroCard(session)
                     .title(organization.name)
-                    .subtitle("email: " + organization.emailaddress1)
+                    .subtitle("email: " + [display](organization.emailaddress1))
                     .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + organization.websiteurl)  
             );
         })
