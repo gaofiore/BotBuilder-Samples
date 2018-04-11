@@ -1,5 +1,6 @@
 var autolinkJs = require("autolink-js");
 const builder = require('botbuilder');
+var mailtoLink = require('mailto-link');
 
 module.exports = {
     getMusiciansCarousel: (session, items) => {
@@ -11,7 +12,7 @@ module.exports = {
             message.addAttachment(
                 new builder.HeroCard(session)
                     .title(organization.name)
-                    .subtitle("email: " + <a href='mailto:organization.emailaddress1'> organization.emailaddress1</a>)
+                    .subtitle("email: " + mailtoLink({to:organization.emailaddress1, subject: ''}))
                     .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + organization.websiteurl.autoLink()) 
             );
         })
