@@ -11,7 +11,7 @@ module.exports = {
             message.addAttachment(
                 new builder.HeroCard(session)
                     .title(organization.name)
-                    .subtitle("email: " + organization.emailaddress1)
+                    .subtitle("email: " + <a href='mailto:organization.emailaddress1'> organization.emailaddress1</a>)
                     .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + organization.websiteurl.autoLink()) 
             );
         })
