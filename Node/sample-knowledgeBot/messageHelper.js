@@ -12,7 +12,7 @@ module.exports = {
             message.addAttachment(
                 new builder.HeroCard(session)
                     .title(organization.name)
-                    .subtitle("email: " + mailtoLink({to:organization.emailaddress1, subject: ''}))
+                    .subtitle(mailtoLink({to:organization.emailaddress1, subject: 'Hello'}))
                     .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + organization.websiteurl.autoLink()) 
             );
         })
