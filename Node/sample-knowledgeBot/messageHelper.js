@@ -1,3 +1,4 @@
+const hyperlinker = require('hyperlinker');
 const builder = require('botbuilder');
 
 module.exports = {
@@ -11,7 +12,7 @@ module.exports = {
                 new builder.HeroCard(session)
                     .title(organization.name)
                     .subtitle("email: " + organization.emailaddress1)
-                    .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + organization.websiteurl) 
+                    .text('Main Contact: ' + organization.primarycontactidyominame + " | " + 'Phone: ' + organization.telephone1+ " | " + hyperlinker('website',organization.websiteurl)) 
             );
         })
         return message;
